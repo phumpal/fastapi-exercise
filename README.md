@@ -80,6 +80,7 @@ Similarly, I wanted to stay consistent with the existing company stack. Other ch
 A few other notes
 
 - Used `psycopg2-binary` versus Alpine edge repos for `postgresql17-contrib` and `postgresql17-dev` to reduce image size
+- Cross-platform compatibility via [environment markers](https://peps.python.org/pep-0508/#environment-markers:~:text=posix%2C%20java-,sys_platform,-sys.platform)  `sys_platform`
 - Preferred environment variables to construct `DATABASE_URL` due to possible variable interpolation and YAML shortcomings in docker-compose
 - Allowed use of `DATABASE_URL` _when_ developing outside of docker-compose
 - Used GitHub Copilot to
