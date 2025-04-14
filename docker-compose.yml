@@ -28,5 +28,15 @@ services:
     depends_on:
       - db
 
+  haproxy:
+    image: haproxy:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
+      - ./errors/:/usr/local/etc/haproxy/errors/:ro
+    depends_on:
+      - app
+
 volumes:
   pg-data:
