@@ -1,7 +1,23 @@
 services:
+  db:
+    image: postgres:17.4
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: fastapi_development
+    volumes:
+      - pg-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
   app:
     build:
       context: .
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
+    depends_on:
+      - db
+
+volumes:
+  pg-data:
