@@ -1,11 +1,10 @@
 FROM python:3.12-alpine
 
 ENV TIMEZONE=UTC
+ENV TZDIR=/usr/share/zoneinfo
 
 RUN cp /usr/share/zoneinfo/$TIMEZONE /etc/localtime && \
   echo $TIMEZONE > /etc/timezone
-
-ENV TZDIR=/usr/share/zoneinfo
 
 WORKDIR /app
 
