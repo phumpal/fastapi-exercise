@@ -1,3 +1,15 @@
+## Prerequisites
+
+`docker`, `docker-compose` and `jq`  will need to be installed. On macOS
+
+    brew install --cask docker
+    brew install docker-compose
+    brew install jq
+
+Alternatively a naive `Brewfile` has been included to install dependencies
+
+    brew bundle install
+
 ## Getting started
 
 Running
@@ -6,14 +18,14 @@ Running
 
 will
 
-- build the app container
+- build the app image
 - launch the db (Postgres) container with appropriate creds
 - launch an haproxy reverse-proxy
 - seed the database
 
 ## Manual verification
 
-When `docker-compose.yml` completes `seed.sh` should have been run to populate the db. Running `./seed.sh` again should show a message similar to
+When `docker-compose.yml` completes `seed.sh` will run to populate the db. `./seed.sh` can be run again to verify the databases has been seeded
 
 > Item "Arroz" already exists. Skipping
 
@@ -39,7 +51,7 @@ Getting the service health
 Steps necessary before deploying this microservice to production
 
 - Add a default/root route, appropriate redirects, TLS
-- Add the ability to list items by id
+- Add the ability to list items by id, prevent duplicate items
 - Support async request handling
 - Review and finalize [uvicorn](https://www.uvicorn.org/) config
 - Improve validation and error handling
@@ -65,9 +77,11 @@ Similarly, I wanted to stay consistent with the existing company stack. Other ch
 
 ## Misc
 
-A few other decisions worth pointing out
+A few other notes
 
-- To keep the Docker image size small, I used `psycopg2-binary` rather than adding Alpine edge repos for `postgresql17-contrib` and `postgresql17-dev`
+- Used `psycopg2-binary` versus Alpine edge repos for `postgresql17-contrib` and `postgresql17-dev` to reduce image size
 - Preferred environment variables to construct `DATABASE_URL` due to possible variable interpolation and YAML shortcomings in docker-compose
-- Allowed use of `DATABASE_URL` if developing outside of docker-compose
-- Used GitHub Copilot to improve maintainability - single responsibility, modular, simpler to test
+- Allowed use of `DATABASE_URL` _when_ developing outside of docker-compose
+- Used GitHub Copilot to
+    - improve maintainability - single responsibility, modular
+    - add structured logging
