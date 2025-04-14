@@ -14,11 +14,6 @@ app.add_middleware(RequestLoggingMiddleware)
 
 app.include_router(items.router)
 
-@app.get("/")
-@log_endpoint("root")
-def read_root():
-    return {"Hello": "World"}
-
 @app.get("/health")
 @log_endpoint("health_check")
 def health_check():
