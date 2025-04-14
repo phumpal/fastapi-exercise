@@ -8,9 +8,9 @@ RUN cp /usr/share/zoneinfo/$TIMEZONE /etc/localtime && \
 
 WORKDIR /app
 
-ADD . .
+ADD ./app /app
 
-RUN pip install --no-cache-dir --upgrade -r requirements.txt
+RUN pip install --no-cache-dir --upgrade -r /app/requirements.txt
 
 EXPOSE 3000
 
